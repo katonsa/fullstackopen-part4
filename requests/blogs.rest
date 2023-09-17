@@ -1,0 +1,13 @@
+### Get all blogs
+GET http://localhost:3003/api/blogs HTTP/1.1
+
+### Create blog resource
+POST http://localhost:3003/api/blogs HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "npm audit: Broken by Design",
+  "author" : "Dan Abramov",
+  "url": "https://overreacted.io/npm-audit-broken-by-design/",
+  "likes": 5
+}
