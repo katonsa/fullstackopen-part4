@@ -102,4 +102,36 @@ describe('blogs api integration test', () => {
       .expect(400)
   })
 
-}, 30000)
+  describe('deletion of a blog(post)', () => {
+    test('succeeds with status code 204 if id is valid', async () => {
+      const itemsBeforeDeletion = await helper.blogsInDb()
+      const itemToDelete = itemsBeforeDeletion[0]
+
+      await api
+        .delete(`/api/blogs/${itemToDelete.id}`)
+        .expect(204)
+
+      const itemsAfterDeletion = await helper.blogsInDb()
+      expect(itemsAfterDeletion).toHaveLength(helper.blogs.length - 1)
+      const titles = itemsAfterDeletion.map(blog => blog.title)
+      expect(titles).not.toContain(itemToDelete.title)
+    })
+  })
+
+  describe('updating a blog(post)', () => {
+    test('succeeds with valid data', async () => {
+      const itemsBeforeChanges = await helper.blogsInDb()
+      const itemToUpdate = itemsBeforeChanges[0]
+
+      await api
+        .put(`/api/blogs/${itemToUpdate.id}`)
+        .send({ ...itemToUpdate, likes: 99 })
+        .expect(200)
+
+      const itemsAfterChanges = await helper.blogsInDb()
+      const updatedItem = itemsAfterChanges.find(item => item.title === itemToUpdate.title)
+      expect(updatedItem.likes).toBe(99)
+    })
+  })
+
+})
