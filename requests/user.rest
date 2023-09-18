@@ -1,0 +1,23 @@
+### Get all users
+GET http://localhost:3003/api/users HTTP/1.1
+
+### Create user
+# @prompt username Name and username of the user
+POST http://localhost:3003/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "{{username}}",
+  "username": "{{username}}",
+  "password": "superdupersecret"
+}
+
+### User login
+# @prompt username Username of the user
+POST http://localhost:3003/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "superdupersecret"
+}

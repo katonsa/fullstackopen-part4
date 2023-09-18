@@ -1,13 +1,24 @@
+@token=
+
 ### Get all blogs
 GET http://localhost:3003/api/blogs HTTP/1.1
+Authorization: Bearer {{token}}
 
 ### Create blog resource
+# @prompt title blog title
+# @prompt author blog author
+# @prompt url the url
 POST http://localhost:3003/api/blogs HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "title": "npm audit: Broken by Design",
-  "author" : "Dan Abramov",
-  "url": "https://overreacted.io/npm-audit-broken-by-design/",
-  "likes": 5
+  "title": "{{title}}",
+  "author" : "{{author}}",
+  "url": "{{url}}"
 }
+
+### Delete blog resource
+# @prompt blogId Blog id to delete
+DELETE http://localhost:3003/api/blogs/{{blogId}} HTTP/1.1
+Authorization: Bearer {{token}}
